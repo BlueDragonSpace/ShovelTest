@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctog38p6tt0vx"]
+
+[ext_resource type="Texture2D" uid="uid://boda6ebo4slv" path="res://placeholder_assets/yoshi.png" id="1_lurex"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h150x"]
+radius = 16.0
+height = 48.0
+
+[node name="player" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+
+[node name="Yoshi" type="Sprite2D" parent="."]
+scale = Vector2(0.15534, 0.23301)
+texture = ExtResource("1_lurex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_h150x")

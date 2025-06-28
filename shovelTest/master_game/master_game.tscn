@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://21l3uf74nqou"]
+
+[ext_resource type="Texture2D" uid="uid://vph0d7036kfa" path="res://placeholder_assets/space.webp" id="1_asmsn"]
+[ext_resource type="PackedScene" uid="uid://tjj5j7qdhuv7" path="res://master_game/enemy/enemy_spawner.tscn" id="3_dhyc0"]
+[ext_resource type="PackedScene" uid="uid://ctog38p6tt0vx" path="res://master_game/player/player.tscn" id="3_jtveh"]
+
+[node name="masterGame" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(528, 392)
+scale = Vector2(5.09392, 5.05463)
+texture = ExtResource("1_asmsn")
+
+[node name="player" parent="." instance=ExtResource("3_jtveh")]
+position = Vector2(400, 400)
+scale = Vector2(2.05707, 2)
+
+[node name="Center and bounding box" type="Marker2D" parent="."]
+position = Vector2(400, 400)
+gizmo_extents = 400.0
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_dhyc0")]
+position = Vector2(400, 400)

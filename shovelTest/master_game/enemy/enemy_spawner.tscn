@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://tjj5j7qdhuv7"]
+
+[ext_resource type="Script" uid="uid://d17fr2gnbqalf" path="res://master_game/enemy/enemy_spawner.gd" id="1_que7r"]
+
+[node name="EnemySpawner" type="Node2D"]
+script = ExtResource("1_que7r")
+spawn_rate = 1
+
+[node name="Curves" type="Node2D" parent="."]

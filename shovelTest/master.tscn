@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxbw5uhqrvf48"]
+
+[ext_resource type="PackedScene" uid="uid://21l3uf74nqou" path="res://master_game/master_game.tscn" id="1_s35ub"]
+[ext_resource type="PackedScene" uid="uid://nfkk4p6v4v1k" path="res://master_ui/master_ui.tscn" id="2_h2bm4"]
+
+[node name="master" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="masterGame" parent="." instance=ExtResource("1_s35ub")]
+
+[node name="masterUI" parent="." instance=ExtResource("2_h2bm4")]
+layout_mode = 1
+scale = Vector2(1.00937, 1.05441)

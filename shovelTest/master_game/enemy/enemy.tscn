@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpry6qm80qkkg"]
+
+[ext_resource type="Script" uid="uid://bh1bbhivibn7d" path="res://master_game/enemy/enemy.gd" id="1_4kkgi"]
+[ext_resource type="Texture2D" uid="uid://b62murfp71k2x" path="res://placeholder_assets/mario.png" id="2_k30fh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5m6i"]
+size = Vector2(64, 26)
+
+[node name="basic_enemy" type="CharacterBody2D"]
+collision_layer = 10
+collision_mask = 5
+script = ExtResource("1_4kkgi")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a5m6i")
+
+[node name="art" type="Sprite2D" parent="."]
+scale = Vector2(0.42853, 0.14501)
+texture = ExtResource("2_k30fh")
