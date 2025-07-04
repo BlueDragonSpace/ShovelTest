@@ -1,19 +1,68 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpry6qm80qkkg"]
+[gd_scene load_steps=10 format=3 uid="uid://dpry6qm80qkkg"]
 
 [ext_resource type="Script" uid="uid://bh1bbhivibn7d" path="res://master_game/enemy/enemy.gd" id="1_4kkgi"]
-[ext_resource type="Texture2D" uid="uid://b62murfp71k2x" path="res://placeholder_assets/mario.png" id="2_k30fh"]
+[ext_resource type="Texture2D" uid="uid://b0y2f5kyef73o" path="res://art_assets/BasicEnemy.png" id="2_k30fh"]
+[ext_resource type="Texture2D" uid="uid://ceaw3lu6jrjfh" path="res://art_assets/Curver-1.png.png" id="3_hadwe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8asj"]
+atlas = ExtResource("2_k30fh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdvmb"]
+atlas = ExtResource("2_k30fh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1voos"]
+atlas = ExtResource("2_k30fh")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ootcj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8asj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdvmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1voos")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a5m6i"]
-size = Vector2(64, 26)
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k30fh"]
+radius = 32.0
 
 [node name="basic_enemy" type="CharacterBody2D"]
-collision_layer = 10
-collision_mask = 5
+scale = Vector2(2, 2)
+collision_layer = 2
+collision_mask = 36
 script = ExtResource("1_4kkgi")
 
-[node name="hitbox" type="CollisionShape2D" parent="."]
+[node name="basic_art" type="AnimatedSprite2D" parent="."]
+position = Vector2(-7.15256e-07, 4.76837e-07)
+rotation = 1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ootcj")
+autoplay = "default"
+frame_progress = 0.452264
+
+[node name="curve_art" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(2, 2)
+texture = ExtResource("3_hadwe")
+
+[node name="basic_hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_a5m6i")
 
-[node name="art" type="Sprite2D" parent="."]
-scale = Vector2(0.42853, 0.14501)
-texture = ExtResource("2_k30fh")
+[node name="curve_hitbox" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_k30fh")
+disabled = true

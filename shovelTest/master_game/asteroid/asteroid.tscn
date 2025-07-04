@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://dklhcxn4l80v6"]
+
+[ext_resource type="Script" uid="uid://b544jwbkekc3d" path="res://master_game/asteroid/asteroid.gd" id="1_8qt6f"]
+[ext_resource type="Texture2D" uid="uid://qt12tmuoyfkt" path="res://art_assets/asteroidBlowUp.png" id="2_q3tom"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2lgt"]
+atlas = ExtResource("2_q3tom")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fodvh"]
+atlas = ExtResource("2_q3tom")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvbfc"]
+atlas = ExtResource("2_q3tom")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddqlw"]
+atlas = ExtResource("2_q3tom")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh6gr"]
+atlas = ExtResource("2_q3tom")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p42ff"]
+atlas = ExtResource("2_q3tom")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wunsf"]
+atlas = ExtResource("2_q3tom")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3gbey"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2lgt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fodvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvbfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddqlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh6gr")
+}],
+"loop": false,
+"name": &"blow_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p42ff")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wunsf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ksuex"]
+radius = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8qt6f"]
+radius = 48.0
+
+[node name="Asteroid" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_8qt6f")
+
+[node name="art" type="AnimatedSprite2D" parent="."]
+position = Vector2(-7.15256e-07, -7.15256e-07)
+scale = Vector2(3.25, 3.25)
+sprite_frames = SubResource("SpriteFrames_3gbey")
+animation = &"blow_up"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.000815415
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ksuex")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 39
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_8qt6f")
+
+[connection signal="animation_finished" from="art" to="." method="_on_art_animation_finished"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

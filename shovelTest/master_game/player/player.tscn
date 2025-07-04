@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctog38p6tt0vx"]
+[gd_scene load_steps=4 format=3 uid="uid://ctog38p6tt0vx"]
 
 [ext_resource type="Texture2D" uid="uid://boda6ebo4slv" path="res://placeholder_assets/yoshi.png" id="1_lurex"]
+[ext_resource type="Script" uid="uid://8tmeiv5csxty" path="res://master_game/player/player.gd" id="1_rn0ux"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h150x"]
 radius = 16.0
 height = 48.0
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="Area2D"]
 scale = Vector2(2, 2)
+collision_mask = 34
+script = ExtResource("1_rn0ux")
 
 [node name="Yoshi" type="Sprite2D" parent="."]
 scale = Vector2(0.15534, 0.23301)
@@ -15,3 +18,5 @@ texture = ExtResource("1_lurex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_h150x")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

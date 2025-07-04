@@ -7,7 +7,6 @@ extends CharacterBody2D
 
 var hp = 1
 
-@onready var art = $art
 
 func _ready():
 
@@ -35,16 +34,25 @@ func _ready():
 
 	match(enemy_type):
 		"basic":
+			var _art = $basic_art
 			hp = randi_range(1, 2)
 			velocity = Vector2(-cos(angle), -sin(angle)) * move_speed
 		"bigBoi":
+			var art = $basic_art
 			hp = randi_range(2, 4)
 			velocity = Vector2(-cos(angle), -sin(angle)) * move_speed * 0.25
-			scale = Vector2(1.5, 1.5) #make the enemy bigger
+			scale *= 2 #make the enemy bigger
 			art.modulate = Color(1, 0.5, 0.5) #change the color to red
 		"curve":
+			var art = $curve_art
+			art.visible = true
+			$curve_hitbox.disabled = false
+
+			$basic_art.visible = false
+			$basic_hitbox.disabled = true
+
+			hp = randi_range(1, 1)
 			velocity = Vector2(-cos(angle), -sin(angle)) * move_speed * 0.5
-			art.modulate = Color(0.5, 0.5, 1) #change the color to blue
 
 func _physics_process(delta):
 
@@ -53,6 +61,12 @@ func _physics_process(delta):
 		move_and_slide()
 	else:
 		position += velocity * delta
+		rotation += 0.05 #spins the enemy around itself
 	
 	if position.x < -800 or position.x > 800 or position.y < -800 or position.y > 800:
 		queue_free() #if the enemy is out of bounds, remove it from the scene tree
+
+func take_hit():
+	hp -= 1
+	if hp <= 0:
+		queue_free()

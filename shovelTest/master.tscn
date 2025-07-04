@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxbw5uhqrvf48"]
+[gd_scene load_steps=4 format=3 uid="uid://dxbw5uhqrvf48"]
 
 [ext_resource type="PackedScene" uid="uid://21l3uf74nqou" path="res://master_game/master_game.tscn" id="1_s35ub"]
 [ext_resource type="PackedScene" uid="uid://nfkk4p6v4v1k" path="res://master_ui/master_ui.tscn" id="2_h2bm4"]
+[ext_resource type="AudioStream" uid="uid://12gemee8nmqi" path="res://Game Jam Practice Demo1.mp3" id="3_h2bm4"]
 
 [node name="master" type="Control"]
 layout_mode = 3
@@ -16,3 +17,7 @@ grow_vertical = 2
 [node name="masterUI" parent="." instance=ExtResource("2_h2bm4")]
 layout_mode = 1
 scale = Vector2(1.00937, 1.05441)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_h2bm4")
+autoplay = true

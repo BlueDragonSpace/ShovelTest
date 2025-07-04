@@ -3,10 +3,15 @@ extends Node2D
 # # hi lol
 # # In here, I control the enemy spawn patterns
 
+# This also controls asteroids
+
 # ENEMY VARIABLESSSSSsss
 var time = 0
 @export var spawn_rate = 3 # seconds between spawns, decreases over time
+var initial_spawn_rate = spawn_rate # used to reset the spawn rate after a cycle
 @export var decay_rate = 0.8 # how much to decrease the spawn rate by each time
+
+@export var asteroid_rate = .05 
 
 var cycle_spawns = 0 #how many spawns in this cycle
 var total_cycle_spawns = 5 #how many spawns for this cycle total
@@ -16,11 +21,20 @@ var has_spawned = false #has spawned during the spawn rate (not related to cycle
 var has_spawned_disable_time = 0 #the next time spawn can happen 
 
 var ENEMY = preload("res://master_game/enemy/enemy.tscn")
+var ASTEROID = preload("res://master_game/asteroid/asteroid.tscn")
 
-@onready var CurveNode = $Curves
+@onready var CurveNode: Node2D = $Curves
+
+func _ready() -> void:
+	GlobalVars.connect("call_restart", _on_restart)
 
 func spawn_enemy():
 	var enemy_instance = ENEMY.instantiate() #initializes in code
+
+	#position is automatically set to the center on first frame of spawn, which ends up killing the player immediately
+	#so... an offset is needed
+	enemy_instance.position = Vector2(775,775)
+	#position is manually set in the code of both enemies and asteroids, and is immediately overridden
 
 	enemy_instance.speed = 1/(spawn_rate/5.0)  # Adjust speed based on spawn rate
 	match (randi_range(0, 2)): # Randomly choose an enemy type
@@ -35,7 +49,20 @@ func spawn_enemy():
 			CurveNode.add_child(enemy_instance) # Add the enemy to the CurveNode
 
 
+func _on_restart():
+	time = 0
+	cycle_spawns = 0
+	total_cycle_spawns = 5
+	has_spawned_disable_time = 0
+	spawn_rate = initial_spawn_rate
 
+	#destroy all children
+	for child in get_children():
+		if child != CurveNode:
+			child.queue_free() # Free the enemy instance
+		else:
+			for children in CurveNode.get_children():
+				children.queue_free() # Free the enemy instance in CurveNode
 	
 
 func round_to_decimal_places(value: float, places: int) -> float:
@@ -82,6 +109,15 @@ func _process(delta: float) -> void:
 			has_spawned = false
 
 	CurveNode.rotation += 0.01
+
+	if randf_range(0, 1) < asteroid_rate:
+		var asteroid_instance = ASTEROID.instantiate()
+		#position is automatically set to the center on first frame of spawn, which ends up killing the player immediately
+		#so... an offset is needed
+		asteroid_instance.position = Vector2(775,775)
+		#position is manually set in the code of both enemies and asteroids, and is immediately overridden
+		add_child(asteroid_instance) # Add the asteroid to the scene tree
+	
 
 #discarded code below
 
