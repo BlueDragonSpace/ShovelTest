@@ -54,11 +54,17 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
                 GlobalVars.SCORE += 50
         6: # Asteroid
             blow_up()
+            body.blow_up() # Blow up the other asteroid
         
 
 func blow_up() -> void:
     blowing_up = true
     art.play("blow_up") # Play the blow-up animation
+    GlobalVars.SCORE += 50
+
+func take_hit() -> void:
+    pass
+    #yeah lazy coding so what
 
 func _on_art_animation_finished() -> void:
     if blowing_up:

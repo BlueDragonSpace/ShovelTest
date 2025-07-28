@@ -6,7 +6,7 @@ extends CharacterBody2D
 # comes in flavors of basic, bigBoi, and curve
 
 var hp = 1
-
+var enemy_score = 0 #reassigned by class
 
 func _ready():
 
@@ -35,14 +35,16 @@ func _ready():
 	match(enemy_type):
 		"basic":
 			var _art = $basic_art
-			hp = randi_range(1, 2)
+			hp = 1
 			velocity = Vector2(-cos(angle), -sin(angle)) * move_speed
+			enemy_score = 100
 		"bigBoi":
 			var art = $basic_art
 			hp = randi_range(2, 4)
 			velocity = Vector2(-cos(angle), -sin(angle)) * move_speed * 0.25
 			scale *= 2 #make the enemy bigger
 			art.modulate = Color(1, 0.5, 0.5) #change the color to red
+			enemy_score = 200
 		"curve":
 			var art = $curve_art
 			art.visible = true
@@ -53,6 +55,7 @@ func _ready():
 
 			hp = randi_range(1, 1)
 			velocity = Vector2(-cos(angle), -sin(angle)) * move_speed * 0.5
+			enemy_score = 150
 
 func _physics_process(delta):
 
@@ -69,4 +72,9 @@ func _physics_process(delta):
 func take_hit():
 	hp -= 1
 	if hp <= 0:
+		GlobalVars.SCORE += enemy_score
 		queue_free()
+
+func blow_up():
+	pass
+	#also really lazy code

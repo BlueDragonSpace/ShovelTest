@@ -17,9 +17,9 @@ func _process(_delta):
     # Smoothly update the shown score to match the actual score
     if shown_score != GlobalVars.SCORE:
         if shown_score < GlobalVars.SCORE:
-            shown_score += 1
+            shown_score += 10
         elif shown_score > GlobalVars.SCORE:
-            shown_score -= 10
+            shown_score = 0
     score_label.text = "SCORE: " + str(shown_score)
 
 func _on_retry_pressed():

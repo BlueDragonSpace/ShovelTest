@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2hvj00ue78sa"]
+
+[ext_resource type="Script" uid="uid://dpdgdqx341nkb" path="res://master_game/player/bullet/bullet.gd" id="1_m0cgt"]
+[ext_resource type="Texture2D" uid="uid://dkjqsoxj37t2i" path="res://master_game/player/bullet/FrogBullet-1.png.png" id="2_vl1dw"]
+[ext_resource type="AudioStream" uid="uid://bnvrdt1gc6b53" path="res://sounds/boom.wav" id="3_vl1dw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rksl"]
+size = Vector2(16, 32)
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 4
+collision_mask = 34
+script = ExtResource("1_m0cgt")
+
+[node name="Art" type="Sprite2D" parent="."]
+position = Vector2(0, -4.76837e-07)
+rotation = 1.5708
+scale = Vector2(4.25913, 4.25913)
+texture = ExtResource("2_vl1dw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.38419e-07)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_6rksl")
+
+[node name="Boom" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vl1dw")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="Boom" to="." method="_on_boom_finished"]

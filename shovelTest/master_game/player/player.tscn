@@ -1,22 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctog38p6tt0vx"]
+[gd_scene load_steps=6 format=3 uid="uid://ctog38p6tt0vx"]
 
-[ext_resource type="Texture2D" uid="uid://boda6ebo4slv" path="res://placeholder_assets/yoshi.png" id="1_lurex"]
 [ext_resource type="Script" uid="uid://8tmeiv5csxty" path="res://master_game/player/player.gd" id="1_rn0ux"]
+[ext_resource type="Texture2D" uid="uid://c6odrpf6xxbts" path="res://master_game/player/Frogship-1.png.png" id="2_rn0ux"]
+[ext_resource type="AudioStream" uid="uid://cuvm7iejqgpwf" path="res://sounds/zap.wav" id="3_lmbwn"]
+[ext_resource type="AudioStream" uid="uid://bskgh71u6x5ij" path="res://sounds/death.wav" id="4_l2wsm"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h150x"]
-radius = 16.0
-height = 48.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_k1s0s"]
+radius = 16.4924
 
 [node name="player" type="Area2D"]
 scale = Vector2(2, 2)
 collision_mask = 34
 script = ExtResource("1_rn0ux")
 
-[node name="Yoshi" type="Sprite2D" parent="."]
-scale = Vector2(0.15534, 0.23301)
-texture = ExtResource("1_lurex")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_k1s0s")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_h150x")
+[node name="Art" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.8, 0.933333)
+texture = ExtResource("2_rn0ux")
+
+[node name="BulletHolder" type="Node" parent="."]
+
+[node name="Zap" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_lmbwn")
+
+[node name="ShotTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_l2wsm")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]

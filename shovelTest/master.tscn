@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxbw5uhqrvf48"]
+[gd_scene load_steps=6 format=3 uid="uid://dxbw5uhqrvf48"]
 
 [ext_resource type="PackedScene" uid="uid://21l3uf74nqou" path="res://master_game/master_game.tscn" id="1_s35ub"]
 [ext_resource type="PackedScene" uid="uid://nfkk4p6v4v1k" path="res://master_ui/master_ui.tscn" id="2_h2bm4"]
+[ext_resource type="Shader" uid="uid://dnjfmpridifav" path="res://SineShaker.gdshader" id="3_8aqai"]
 [ext_resource type="AudioStream" uid="uid://12gemee8nmqi" path="res://Game Jam Practice Demo1.mp3" id="3_h2bm4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_viqro"]
+shader = ExtResource("3_8aqai")
+shader_parameter/period_width = 0.887
+shader_parameter/amplitude = 0.617
+shader_parameter/shake_speed = 0.979
+shader_parameter/pixel = false
+shader_parameter/y_axis = true
+shader_parameter/tangent = false
 
 [node name="master" type="Control"]
 layout_mode = 3
@@ -18,6 +28,17 @@ grow_vertical = 2
 layout_mode = 1
 scale = Vector2(1.00937, 1.05441)
 
+[node name="pixelShader" type="ColorRect" parent="masterUI"]
+visible = false
+material = SubResource("ShaderMaterial_viqro")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_h2bm4")
+volume_db = -2.33
 autoplay = true
